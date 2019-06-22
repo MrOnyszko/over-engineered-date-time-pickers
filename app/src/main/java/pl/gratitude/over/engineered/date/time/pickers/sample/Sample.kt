@@ -5,6 +5,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,8 +15,10 @@ import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
+import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerState
 import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerViewModel
 import pl.gratitude.over.engineered.date_time.pickers.date.lazyDatePickerViewModel
+import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerState
 import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerViewModel
 import pl.gratitude.over.engineered.date_time.pickers.time.lazyTimePickerViewModel
 
@@ -24,6 +27,14 @@ class Sample : Fragment() {
   private val datePickerViewModel: DatePickerViewModel by lazyDatePickerViewModel()
 
   private val timePickerViewModel: TimePickerViewModel by lazyTimePickerViewModel()
+
+  private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+  private val timeFormatter = if (DateFormat.is24HourFormat(requireContext())) {
+    DateTimeFormatter.ofPattern("HH:mm")
+  } else {
+    DateTimeFormatter.ofPattern("HH:mm aa")
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -34,25 +45,49 @@ class Sample : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    date_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.creatorToDatePicker())
-    }
+    navigation()
 
-    time_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.creatorToTimePicker())
-    }
+    defaultInputsValue()
 
-    val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    handleState()
 
-    val timeFormatter = if (DateFormat.is24HourFormat(requireContext())) {
-      DateTimeFormatter.ofPattern("HH:mm")
-    } else {
-      DateTimeFormatter.ofPattern("HH:mm aa")
-    }
+  }
 
-    date_text_input_edit_text.setText(dateFormatter.format(OffsetDateTime.now(ZoneId.systemDefault())))
-    time_text_input_edit_text.setText(timeFormatter.format(LocalTime.now(ZoneId.systemDefault())))
+  private fun handleState() {
+    datePickerViewModel.datePickerState.observe(this, Observer { state ->
+      when (state) {
+        DatePickerState.DatePickerOpen -> {
+          Toast.makeText(requireContext(), "Date picker open", Toast.LENGTH_SHORT).show()
+        }
+        is DatePickerState.DateChosen -> {
+          val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+          val formattedDate = dateFormatter.format(date)
+          date_text_input_edit_text.setText(formattedDate)
+        }
+        DatePickerState.DatePickerClose -> {
+          Toast.makeText(requireContext(), "Date picker close", Toast.LENGTH_SHORT).show()
+        }
+      }
+    })
 
+    timePickerViewModel.timePickerState.observe(this, Observer { state ->
+      when (state) {
+        TimePickerState.TimePickerOpen -> {
+          Toast.makeText(requireContext(), "Time picker open", Toast.LENGTH_SHORT).show()
+        }
+        is TimePickerState.TimeChosen -> {
+          val date = LocalTime.of(state.hourOfDay, state.minute)
+          val formattedTime = timeFormatter.format(date)
+          time_text_input_edit_text.setText(formattedTime)
+        }
+        TimePickerState.TimePickerClose -> {
+          Toast.makeText(requireContext(), "Time picker close", Toast.LENGTH_SHORT).show()
+        }
+      }
+    })
+  }
+
+  private fun handleSimpleState() {
     datePickerViewModel.datePickerSimpleState.observe(requireActivity(), Observer { state ->
       val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
       val formattedDate = dateFormatter.format(date)
@@ -64,6 +99,20 @@ class Sample : Fragment() {
       val formattedTime = timeFormatter.format(date)
       time_text_input_edit_text.setText(formattedTime)
     })
+  }
 
+  private fun defaultInputsValue() {
+    date_text_input_edit_text.setText(dateFormatter.format(OffsetDateTime.now(ZoneId.systemDefault())))
+    time_text_input_edit_text.setText(timeFormatter.format(LocalTime.now(ZoneId.systemDefault())))
+  }
+
+  private fun navigation() {
+    date_text_input_edit_text.setOnClickListener {
+      findNavController().navigate(SampleDirections.sampleToDatePicker()) // todo: figure out args
+    }
+
+    time_text_input_edit_text.setOnClickListener {
+      findNavController().navigate(SampleDirections.sampleToTimePicker()) // todo: figure out args
+    }
   }
 }
