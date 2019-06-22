@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: "kotlin-kapt"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "pl.gratitude.over.engineered.date.time.pickers.sample"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':library')
+
+    implementation kotlinDependencies.kotlin_jdk7
+    implementation mobileUiDependencies.three_ten_abp
+    implementation mobileUiDependencies.ktx
+    implementation mobileUiDependencies.material
+    implementation mobileUiDependencies.constraint_layout
+    implementation mobileUiDependencies.appcompat
+    implementation mobileUiDependencies.navigation_fragment_ktx
+    implementation mobileUiDependencies.navigation_ui_ktx
+    implementation mobileUiDependencies.lifecycle_extensions
+    kapt mobileUiDependencies.lifecycle_compiler
+
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Over engineered Date Time Pickers</string>
+
+    <string name="component_mood_entry_creator_date_hint">Date</string>
+    <string name="component_mood_entry_creator_time_hint">Time</string>
+
+</resources>

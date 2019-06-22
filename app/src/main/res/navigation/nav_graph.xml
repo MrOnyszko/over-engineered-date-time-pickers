@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/sample"
+    tools:ignore="UnusedNavigation">
+
+    <include app:graph="@navigation/date_picker_nav_graph" />
+    <include app:graph="@navigation/time_picker_nav_graph" />
+
+    <fragment
+        android:id="@+id/sample"
+        android:name="pl.gratitude.over.engineered.date.time.pickers.sample.Sample"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_sample">
+
+        <action
+            android:id="@+id/creator_to_date_picker"
+            app:destination="@id/date_time_picker_nav_graph" />
+
+        <action
+            android:id="@+id/creator_to_time_picker"
+            app:destination="@id/time_picker_nav_graph" />
+
+    </fragment>
+
+</navigation>
