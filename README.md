@@ -1,5 +1,7 @@
 # Over engineered Date Time Pickers
 
+[![](https://jitpack.io/v/MrOnyszko/over-engineered-date-time-pickers.svg)](https://jitpack.io/#MrOnyszko/over-engineered-date-time-pickers)
+
 ## Synopsis
 
 This is project of library that provides over engineered date time pickers.
