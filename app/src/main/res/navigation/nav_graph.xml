@@ -13,16 +13,6 @@
         android:id="@+id/sample"
         android:name="pl.gratitude.over.engineered.date.time.pickers.sample.Sample"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_sample">
-
-        <action
-            android:id="@+id/sample_to_date_picker"
-            app:destination="@id/date_time_picker_nav_graph" />
-
-        <action
-            android:id="@+id/sample_to_time_picker"
-            app:destination="@id/time_picker_nav_graph" />
-
-    </fragment>
+        tools:layout="@layout/fragment_sample" />
 
 </navigation>

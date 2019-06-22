@@ -18,4 +18,14 @@
 
     </dialog>
 
+    <action
+        android:id="@+id/to_time_picker"
+        app:destination="@id/time_picker">
+        <argument
+            android:name="time"
+            android:defaultValue="@null"
+            app:argType="pl.gratitude.over.engineered.date_time.pickers.time.TimePickerArg"
+            app:nullable="true" />
+    </action>
+
 </navigation>

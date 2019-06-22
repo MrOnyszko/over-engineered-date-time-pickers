@@ -33,7 +33,6 @@ dependencies {
 ### Navigation
 
 1. Include navigation graph eg. `date_picker_nav_graph` or `date_picker_nav_graph`
-2. Define action using id `date_picker_nav_graph` or `date_picker_nav_graph`
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -51,17 +50,7 @@ dependencies {
         android:id="@+id/sample"
         android:name="pl.gratitude.over.engineered.date.time.pickers.sample.Sample"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_sample">
-
-        <action
-            android:id="@+id/sample_to_date_picker"
-            app:destination="@id/date_time_picker_nav_graph" />
-
-        <action
-            android:id="@+id/sample_to_time_picker"
-            app:destination="@id/time_picker_nav_graph" />
-
-    </fragment>
+        tools:layout="@layout/fragment_sample" />
 
 </navigation>
 ```
@@ -70,19 +59,25 @@ dependencies {
 
 0. Setup navigation 
 
+Each graph has defined global action with an argument. Arguments are optional.
+
 ```kotlin
   private fun navigation() {
     date_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.sampleToDatePicker())
+      findNavController().navigate(
+        DatePickerDirections.toDatePicker(DatePickerArg(year = 2019, month = 6, dayOfMonth = 22))  // arg is optional
+      )
     }
-    
+
     time_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.sampleToTimePicker())
+      findNavController().navigate(
+        TimePickerDirections.toTimePicker(TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)) // arg is optional
+      )
     }
   }
 ```
 
-1. Add needed view models
+1. Add needed view models using lazy method extensions defined in the library.
 
 ```kotlin
   private val datePickerViewModel: DatePickerViewModel by lazyDatePickerViewModel()
@@ -90,7 +85,7 @@ dependencies {
   private val timePickerViewModel: TimePickerViewModel by lazyTimePickerViewModel()
 ```
 
-2. Handle date picker
+2. Handle date picker state
 
 ```kotlin
   private fun handleState() {

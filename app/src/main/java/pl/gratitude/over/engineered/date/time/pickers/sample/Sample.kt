@@ -15,12 +15,8 @@ import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
-import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerState
-import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.date.lazyDatePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerState
-import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.time.lazyTimePickerViewModel
+import pl.gratitude.over.engineered.date_time.pickers.date.*
+import pl.gratitude.over.engineered.date_time.pickers.time.*
 
 class Sample : Fragment() {
 
@@ -108,11 +104,15 @@ class Sample : Fragment() {
 
   private fun navigation() {
     date_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.sampleToDatePicker()) // todo: figure out args
+      findNavController().navigate(
+        DatePickerDirections.toDatePicker(DatePickerArg(year = 2019, month = 6, dayOfMonth = 22))
+      )
     }
 
     time_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(SampleDirections.sampleToTimePicker()) // todo: figure out args
+      findNavController().navigate(
+        TimePickerDirections.toTimePicker(TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true))
+      )
     }
   }
 }
