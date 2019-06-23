@@ -16,6 +16,8 @@ class TimePickerViewModel : ViewModel() {
   val timePickerSimpleState: LiveData<TimeChosen>
     get() = _timePickerSimpleState
 
+  var arg: TimePickerArg? = null
+
   internal fun open() = _timePickerState.postValue(TimePickerState.TimePickerOpen)
 
   internal fun close() = _timePickerState.postValue(TimePickerState.TimePickerClose)

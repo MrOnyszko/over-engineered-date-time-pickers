@@ -8,24 +8,6 @@
     <dialog
         android:id="@+id/time_picker"
         android:name="pl.gratitude.over.engineered.date_time.pickers.time.TimePicker"
-        tools:layout="@android:layout/time_picker_dialog">
-
-        <argument
-            android:name="time"
-            android:defaultValue="@null"
-            app:argType="pl.gratitude.over.engineered.date_time.pickers.time.TimePickerArg"
-            app:nullable="true" />
-
-    </dialog>
-
-    <action
-        android:id="@+id/to_time_picker"
-        app:destination="@id/time_picker">
-        <argument
-            android:name="time"
-            android:defaultValue="@null"
-            app:argType="pl.gratitude.over.engineered.date_time.pickers.time.TimePickerArg"
-            app:nullable="true" />
-    </action>
+        tools:layout="@android:layout/time_picker_dialog"/>
 
 </navigation>
