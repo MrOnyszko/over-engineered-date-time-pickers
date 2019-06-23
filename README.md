@@ -95,7 +95,7 @@ Each graph has defined global action with an argument. Arguments are optional.
           Toast.makeText(requireContext(), "Date picker open", Toast.LENGTH_SHORT).show()
         }
         is DatePickerState.DateChosen -> {
-          val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+          val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
           val formattedDate = dateFormatter.format(date)
           date_text_input_edit_text.setText(formattedDate)
         }
@@ -128,7 +128,7 @@ or simplified version
 ```kotlin
   private fun handleSimpleState() {
     datePickerViewModel.datePickerSimpleState.observe(requireActivity(), Observer { state ->
-      val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+      val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
       val formattedDate = dateFormatter.format(date)
       date_text_input_edit_text.setText(formattedDate)
     })

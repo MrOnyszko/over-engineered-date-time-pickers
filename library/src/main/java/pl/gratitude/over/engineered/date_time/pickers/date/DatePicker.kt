@@ -17,7 +17,7 @@ class DatePicker : DialogFragment() {
     DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
       dialog?.isShowing ?: return@OnDateSetListener
 
-      viewModel.apply(year, month + 1, dayOfMonth)
+      viewModel.apply(year, month, dayOfMonth)
     }
 
   override fun onAttach(context: Context) {
@@ -31,7 +31,7 @@ class DatePicker : DialogFragment() {
     }
     val arg = viewModel.arg ?: DatePickerArg(
       year = calendar[Calendar.YEAR],
-      month = calendar[Calendar.MONTH] + 1,
+      month = calendar[Calendar.MONTH],
       dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
     )
     return DatePickerDialog(requireContext(), onDateSetListener, arg.year, arg.month, arg.dayOfMonth)

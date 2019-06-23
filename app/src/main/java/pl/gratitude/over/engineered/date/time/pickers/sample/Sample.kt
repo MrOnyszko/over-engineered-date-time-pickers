@@ -64,7 +64,7 @@ class Sample : Fragment() {
           Toast.makeText(requireContext(), "Date picker open", Toast.LENGTH_SHORT).show()
         }
         is DatePickerState.DateChosen -> {
-          val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+          val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
           val formattedDate = dateFormatter.format(date)
           date_text_input_edit_text.setText(formattedDate)
         }
@@ -93,7 +93,7 @@ class Sample : Fragment() {
 
   private fun handleSimpleState() {
     datePickerViewModel.datePickerSimpleState.observe(requireActivity(), Observer { state ->
-      val date = OffsetDateTime.of(state.year, state.month, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+      val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
       val formattedDate = dateFormatter.format(date)
       date_text_input_edit_text.setText(formattedDate)
     })
@@ -112,12 +112,12 @@ class Sample : Fragment() {
 
   private fun navigation() {
     date_text_input_edit_text.setOnClickListener {
-      datePickerViewModel.arg = DatePickerArg(year = 2019, month = 6, dayOfMonth = 22)
+//      datePickerViewModel.arg = DatePickerArg(year = 2019, month = 6, dayOfMonth = 22)
       findNavController().navigate(R.id.date_picker_nav_graph)
     }
 
     time_text_input_edit_text.setOnClickListener {
-      timePickerViewModel.arg = TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)
+//      timePickerViewModel.arg = TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)
       findNavController().navigate(R.id.time_picker_nav_graph)
     }
   }
