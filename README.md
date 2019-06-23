@@ -66,15 +66,13 @@ Each graph has defined global action with an argument. Arguments are optional.
 ```kotlin
   private fun navigation() {
     date_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(
-        DatePickerDirections.toDatePicker(DatePickerArg(year = 2019, month = 6, dayOfMonth = 22))  // arg is optional
-      )
+      datePickerViewModel.arg = DatePickerArg(year = 2019, month = 6, dayOfMonth = 22)
+      findNavController().navigate(R.id.date_picker_nav_graph)
     }
 
     time_text_input_edit_text.setOnClickListener {
-      findNavController().navigate(
-        TimePickerDirections.toTimePicker(TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)) // arg is optional
-      )
+      timePickerViewModel.arg = TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)
+      findNavController().navigate(R.id.time_picker_nav_graph)
     }
   }
 ```
