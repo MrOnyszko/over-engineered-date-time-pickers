@@ -2,30 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/date_time_picker_nav_graph"
+    android:id="@+id/date_picker_nav_graph"
     app:startDestination="@id/date_picker">
 
     <dialog
         android:id="@+id/date_picker"
         android:name="pl.gratitude.over.engineered.date_time.pickers.date.DatePicker"
-        tools:layout="@android:layout/date_picker_dialog">
-
-        <argument
-            android:name="date_time"
-            android:defaultValue="@null"
-            app:argType="pl.gratitude.over.engineered.date_time.pickers.date.DatePickerArg"
-            app:nullable="true" />
-
-    </dialog>
-
-    <action
-        android:id="@+id/to_date_picker"
-        app:destination="@id/date_picker">
-        <argument
-            android:name="date_time"
-            android:defaultValue="@null"
-            app:argType="pl.gratitude.over.engineered.date_time.pickers.date.DatePickerArg"
-            app:nullable="true" />
-    </action>
+        tools:layout="@android:layout/date_picker_dialog"/>
 
 </navigation>

@@ -16,6 +16,8 @@ class DatePickerViewModel : ViewModel() {
   val datePickerSimpleState: LiveData<DateChosen>
     get() = _datePickerSimpleState
 
+  var arg: DatePickerArg? = null
+
   internal fun open() = _datePickerState.postValue(DatePickerState.DatePickerOpen)
 
   internal fun close() = _datePickerState.postValue(DatePickerState.DatePickerClose)

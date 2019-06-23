@@ -11,8 +11,6 @@ import java.util.TimeZone
 
 class DatePicker : DialogFragment() {
 
-  private val args: DatePickerArgs by navArgs()
-
   private val viewModel: DatePickerViewModel by lazyDatePickerViewModel()
 
   private val onDateSetListener: DatePickerDialog.OnDateSetListener =
@@ -31,7 +29,7 @@ class DatePicker : DialogFragment() {
     val calendar = Calendar.getInstance(TimeZone.getDefault()).apply {
       timeInMillis = System.currentTimeMillis()
     }
-    val arg = args.dateTime ?: DatePickerArg(
+    val arg = viewModel.arg ?: DatePickerArg(
       year = calendar[Calendar.YEAR],
       month = calendar[Calendar.MONTH] + 1,
       dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
