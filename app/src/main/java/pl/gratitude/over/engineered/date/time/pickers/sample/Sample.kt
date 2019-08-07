@@ -15,14 +15,8 @@ import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
-import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerArg
-import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerState
-import pl.gratitude.over.engineered.date_time.pickers.date.DatePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.date.lazyDatePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerArg
-import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerState
-import pl.gratitude.over.engineered.date_time.pickers.time.TimePickerViewModel
-import pl.gratitude.over.engineered.date_time.pickers.time.lazyTimePickerViewModel
+import pl.gratitude.over.engineered.date_time.pickers.date.*
+import pl.gratitude.over.engineered.date_time.pickers.time.*
 
 class Sample : Fragment() {
 
@@ -40,6 +34,9 @@ class Sample : Fragment() {
     }
   }
 
+  object CustomTimePickerTag : TimePickerTag.FeatureTag()
+  object CustomDatePickerTag : DatePickerTag.FeatureTag()
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -53,7 +50,7 @@ class Sample : Fragment() {
 
     defaultInputsValue()
 
-    handleState()
+    handleSimpleState()
 
   }
 
@@ -93,15 +90,19 @@ class Sample : Fragment() {
 
   private fun handleSimpleState() {
     datePickerViewModel.datePickerSimpleState.observe(requireActivity(), Observer { state ->
-      val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
-      val formattedDate = dateFormatter.format(date)
-      date_text_input_edit_text.setText(formattedDate)
+      if (state.tag is CustomDatePickerTag) {
+        val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+        val formattedDate = dateFormatter.format(date)
+        date_text_input_edit_text.setText(formattedDate)
+      }
     })
 
     timePickerViewModel.timePickerSimpleState.observe(requireActivity(), Observer { state ->
-      val date = LocalTime.of(state.hourOfDay, state.minute)
-      val formattedTime = timeFormatter.format(date)
-      time_text_input_edit_text.setText(formattedTime)
+      if(state.tag is CustomTimePickerTag) {
+        val date = LocalTime.of(state.hourOfDay, state.minute)
+        val formattedTime = timeFormatter.format(date)
+        time_text_input_edit_text.setText(formattedTime)
+      }
     })
   }
 
@@ -112,12 +113,12 @@ class Sample : Fragment() {
 
   private fun navigation() {
     date_text_input_edit_text.setOnClickListener {
-//      datePickerViewModel.arg = DatePickerArg(year = 2019, month = 6, dayOfMonth = 22)
+      datePickerViewModel.arg = DatePickerArg(year = 2019, month = 6, dayOfMonth = 22, tag = CustomDatePickerTag)
       findNavController().navigate(R.id.date_picker_nav_graph)
     }
 
     time_text_input_edit_text.setOnClickListener {
-//      timePickerViewModel.arg = TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true)
+      timePickerViewModel.arg = TimePickerArg(hourOfDay = 14, minute = 25, is24Hour = true, tag = CustomTimePickerTag)
       findNavController().navigate(R.id.time_picker_nav_graph)
     }
   }

@@ -18,13 +18,21 @@ class TimePickerViewModel : ViewModel() {
 
   var arg: TimePickerArg? = null
 
-  internal fun open() = _timePickerState.postValue(TimePickerState.TimePickerOpen)
+  internal fun open() = _timePickerState.postValue(TimePickerState.TimePickerOpen.apply {
+    tag = arg?.tag ?: TimePickerTag.Default
+  })
 
-  internal fun close() = _timePickerState.postValue(TimePickerState.TimePickerClose)
+  internal fun close() = _timePickerState.postValue(TimePickerState.TimePickerClose.apply {
+    tag = arg?.tag ?: TimePickerTag.Default
+  })
 
   internal fun apply(hourOfDay: Int, minute: Int, is24Hour: Boolean) {
-    _timePickerState.postValue(TimePickerState.TimeChosen(hourOfDay, minute, is24Hour))
-    _timePickerSimpleState.postValue(TimeChosen(hourOfDay, minute, is24Hour))
+    _timePickerState.postValue(TimePickerState.TimeChosen(hourOfDay, minute, is24Hour).apply {
+      tag = arg?.tag ?: TimePickerTag.Default
+    })
+    _timePickerSimpleState.postValue(TimeChosen(hourOfDay, minute, is24Hour).apply {
+      tag = arg?.tag ?: TimePickerTag.Default
+    })
   }
 
 }

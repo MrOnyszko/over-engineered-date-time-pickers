@@ -1,9 +1,13 @@
 package pl.gratitude.over.engineered.date_time.pickers.date
 
-import android.os.Parcelable
-import androidx.annotation.Keep
-import kotlinx.android.parcel.Parcelize
+data class DatePickerArg(
+  val year: Int,
+  val month: Int,
+  val dayOfMonth: Int,
+  val tag: DatePickerTag = DatePickerTag.Default
+)
 
-@Keep
-@Parcelize
-data class DatePickerArg(val year: Int, val month: Int, val dayOfMonth: Int) : Parcelable
+sealed class DatePickerTag {
+  object Default : DatePickerTag()
+  abstract class FeatureTag : DatePickerTag()
+}

@@ -61,7 +61,9 @@ dependencies {
 
 0. Setup navigation 
 
-Each graph has defined global action with an argument. Arguments are optional.
+ViewModel has a property named `arg`. The argument is optional. The argument has a property named `tag`
+of sealed class type. You can create your own tag to distinguish values during LiveData observing when you have
+more than one date or time pickers in the navigation flow.
 
 ```kotlin
   private fun navigation() {

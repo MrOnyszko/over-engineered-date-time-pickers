@@ -18,13 +18,21 @@ class DatePickerViewModel : ViewModel() {
 
   var arg: DatePickerArg? = null
 
-  internal fun open() = _datePickerState.postValue(DatePickerState.DatePickerOpen)
+  internal fun open() = _datePickerState.postValue(DatePickerState.DatePickerOpen.apply {
+    tag = arg?.tag ?: DatePickerTag.Default
+  })
 
-  internal fun close() = _datePickerState.postValue(DatePickerState.DatePickerClose)
+  internal fun close() = _datePickerState.postValue(DatePickerState.DatePickerClose.apply {
+    tag = arg?.tag ?: DatePickerTag.Default
+  })
 
   internal fun apply(year: Int, month: Int, dayOfMonth: Int) {
-    _datePickerState.postValue(DatePickerState.DateChosen(year, month, dayOfMonth))
-    _datePickerSimpleState.postValue(DateChosen(year, month, dayOfMonth))
+    _datePickerState.postValue(DatePickerState.DateChosen(year, month, dayOfMonth).apply {
+      tag = arg?.tag ?: DatePickerTag.Default
+    })
+    _datePickerSimpleState.postValue(DateChosen(year, month, dayOfMonth).apply {
+      tag = arg?.tag ?: DatePickerTag.Default
+    })
   }
 
 }
