@@ -11,9 +11,9 @@ class TimePickerViewModel : ViewModel() {
   val timePickerState: LiveData<TimePickerState>
     get() = _timePickerState
 
-  private val _timePickerSimpleState: MutableLiveData<TimeChosen> = MutableLiveData()
+  private val _timePickerSimpleState: MutableLiveData<TimeChosen?> = MutableLiveData()
 
-  val timePickerSimpleState: LiveData<TimeChosen>
+  val timePickerSimpleState: LiveData<TimeChosen?>
     get() = _timePickerSimpleState
 
   var arg: TimePickerArg? = null
@@ -33,6 +33,10 @@ class TimePickerViewModel : ViewModel() {
     _timePickerSimpleState.postValue(TimeChosen(hourOfDay, minute, is24Hour).apply {
       tag = arg?.tag ?: TimePickerTag.Default
     })
+  }
+
+  fun clear() {
+    _timePickerSimpleState.postValue(null)
   }
 
 }

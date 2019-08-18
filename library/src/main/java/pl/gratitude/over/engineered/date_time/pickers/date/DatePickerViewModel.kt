@@ -11,9 +11,9 @@ class DatePickerViewModel : ViewModel() {
   val datePickerState: LiveData<DatePickerState>
     get() = _datePickerState
 
-  private val _datePickerSimpleState: MutableLiveData<DateChosen> = MutableLiveData()
+  private val _datePickerSimpleState: MutableLiveData<DateChosen?> = MutableLiveData()
 
-  val datePickerSimpleState: LiveData<DateChosen>
+  val datePickerSimpleState: LiveData<DateChosen?>
     get() = _datePickerSimpleState
 
   var arg: DatePickerArg? = null
@@ -33,6 +33,10 @@ class DatePickerViewModel : ViewModel() {
     _datePickerSimpleState.postValue(DateChosen(year, month, dayOfMonth).apply {
       tag = arg?.tag ?: DatePickerTag.Default
     })
+  }
+
+  fun clear() {
+    _datePickerSimpleState.postValue(null)
   }
 
 }

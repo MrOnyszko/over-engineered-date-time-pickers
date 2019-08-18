@@ -90,6 +90,10 @@ class Sample : Fragment() {
 
   private fun handleSimpleState() {
     datePickerViewModel.datePickerSimpleState.observe(requireActivity(), Observer { state ->
+      if(state == null) {
+        date_text_input_edit_text.text = null
+        return@Observer
+      }
       if (state.tag is CustomDatePickerTag) {
         val date = OffsetDateTime.of(state.year, state.month + 1, state.dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
         val formattedDate = dateFormatter.format(date)
@@ -98,6 +102,10 @@ class Sample : Fragment() {
     })
 
     timePickerViewModel.timePickerSimpleState.observe(requireActivity(), Observer { state ->
+      if(state == null) {
+        time_text_input_edit_text.text = null
+        return@Observer
+      }
       if(state.tag is CustomTimePickerTag) {
         val date = LocalTime.of(state.hourOfDay, state.minute)
         val formattedTime = timeFormatter.format(date)
