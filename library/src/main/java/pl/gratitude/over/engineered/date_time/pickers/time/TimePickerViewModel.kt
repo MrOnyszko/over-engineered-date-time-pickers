@@ -35,7 +35,7 @@ class TimePickerViewModel : ViewModel() {
     })
   }
 
-  fun clear() {
+  fun clearState() {
     _timePickerSimpleState.postValue(null)
   }
 

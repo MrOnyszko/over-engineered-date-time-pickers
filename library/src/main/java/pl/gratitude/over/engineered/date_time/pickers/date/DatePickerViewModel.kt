@@ -35,7 +35,7 @@ class DatePickerViewModel : ViewModel() {
     })
   }
 
-  fun clear() {
+  fun clearState() {
     _datePickerSimpleState.postValue(null)
   }
 
